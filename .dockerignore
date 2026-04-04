@@ -1,0 +1,11 @@
+.git
+.idea
+.vscode
+.qoder
+**/target
+target
+logs
+*.log
+*.iml
+*.iws
+*.ipr

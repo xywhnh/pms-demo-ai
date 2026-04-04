@@ -1,0 +1,36 @@
+services:
+  service-b:
+    container_name: pms-demo-service-b
+    image: pms-demo-ai/service-b:latest
+    build:
+      context: .
+      dockerfile: demo-service-b/Dockerfile
+    restart: unless-stopped
+    ports:
+      - "8082:8082"
+    volumes:
+      - ./logs/service-b:/app/logs
+    networks:
+      - pms-demo-net
+
+  service-a:
+    container_name: pms-demo-service-a
+    image: pms-demo-ai/service-a:latest
+    build:
+      context: .
+      dockerfile: demo-service-a/Dockerfile
+    restart: unless-stopped
+    depends_on:
+      - service-b
+    environment:
+      SERVICE_B_BASE_URL: http://service-b:8082
+    ports:
+      - "8081:8081"
+    volumes:
+      - ./logs/service-a:/app/logs
+    networks:
+      - pms-demo-net
+
+networks:
+  pms-demo-net:
+    driver: bridge

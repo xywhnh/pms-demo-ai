@@ -15,14 +15,15 @@ if ! command -v docker >/dev/null 2>&1; then
 fi
 
 COMPOSE_CMD=()
-if docker compose version >/dev/null 2>&1; then
-  COMPOSE_CMD=(docker compose)
-elif command -v docker-compose >/dev/null 2>&1; then
+if command -v docker-compose >/dev/null 2>&1; then
   COMPOSE_CMD=(docker-compose)
+elif docker compose version 2>/dev/null | grep -qi "Docker Compose"; then
+  COMPOSE_CMD=(docker compose)
 else
   echo "ERROR: neither 'docker compose' nor 'docker-compose' is available."
   exit 1
 fi
+echo "Using compose command: ${COMPOSE_CMD[*]}"
 
 if [ -d ".git" ]; then
   echo "[1/5] Pull latest code..."

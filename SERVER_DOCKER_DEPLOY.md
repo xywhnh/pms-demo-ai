@@ -33,6 +33,14 @@ bash scripts/deploy.sh
 > - `docker compose build`
 > - `docker compose up -d --remove-orphans`
 
+如果服务器访问 Docker Hub 超时，可在执行时指定可访问的镜像源（示例使用 DaoCloud）：
+
+```bash
+MVN_IMAGE=m.daocloud.io/docker.io/library/maven:3.9.9-eclipse-temurin-21 \
+JRE_IMAGE=m.daocloud.io/docker.io/library/eclipse-temurin:21-jre \
+bash scripts/deploy.sh
+```
+
 ## 3. 日常更新部署
 
 后续每次发布新代码，只需要：

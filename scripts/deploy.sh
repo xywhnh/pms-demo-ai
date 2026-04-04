@@ -35,6 +35,12 @@ fi
 echo "[2/5] Prepare log directories..."
 mkdir -p logs/service-a logs/service-b
 
+if [ -n "${MVN_IMAGE:-}" ] || [ -n "${JRE_IMAGE:-}" ]; then
+  echo "Using custom base images:"
+  echo "  MVN_IMAGE=${MVN_IMAGE:-<default>}"
+  echo "  JRE_IMAGE=${JRE_IMAGE:-<default>}"
+fi
+
 echo "[3/5] Build images..."
 "${COMPOSE_CMD[@]}" build
 

@@ -1,14 +1,19 @@
-FROM maven:3.9.9-eclipse-temurin-21 AS builder
+ARG MVN_IMAGE=maven:3.9.9-eclipse-temurin-21
+ARG JRE_IMAGE=eclipse-temurin:21-jre
+
+FROM ${MVN_IMAGE} AS builder
 
 WORKDIR /workspace
+ENV JAVA_HOME=/opt/java/openjdk
+ENV PATH=${JAVA_HOME}/bin:${PATH}
 
 COPY pom.xml .
 COPY demo-service-a/pom.xml demo-service-a/pom.xml
 COPY demo-service-a/src demo-service-a/src
 
-RUN mvn -B -DskipTests -pl demo-service-a -am clean package
+RUN java -version && mvn -B -DskipTests -pl demo-service-a -am clean package
 
-FROM eclipse-temurin:21-jre
+FROM ${JRE_IMAGE}
 
 WORKDIR /app
 RUN mkdir -p /app/logs

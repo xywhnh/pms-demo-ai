@@ -5,6 +5,9 @@ services:
     build:
       context: .
       dockerfile: demo-service-b/Dockerfile
+      args:
+        MVN_IMAGE: ${MVN_IMAGE:-maven:3.9.9-eclipse-temurin-21}
+        JRE_IMAGE: ${JRE_IMAGE:-eclipse-temurin:21-jre}
     restart: unless-stopped
     ports:
       - "8082:8082"
@@ -19,6 +22,9 @@ services:
     build:
       context: .
       dockerfile: demo-service-a/Dockerfile
+      args:
+        MVN_IMAGE: ${MVN_IMAGE:-maven:3.9.9-eclipse-temurin-21}
+        JRE_IMAGE: ${JRE_IMAGE:-eclipse-temurin:21-jre}
     restart: unless-stopped
     depends_on:
       - service-b

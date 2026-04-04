@@ -4,7 +4,9 @@
 
 在服务器上确认以下条件：
 
-1. 已安装 Docker（含 `docker compose` 插件）
+1. 已安装 Docker，并具备以下任一方式：
+   - `docker compose`（Docker Compose 插件）
+   - `docker-compose`（独立二进制）
 2. 服务器可访问 GitHub（用于拉取代码）
 3. 防火墙/安全组放通端口：`8081`、`8082`
 
@@ -102,4 +104,3 @@ sudo firewall-cmd --list-ports
    - `./logs/service-a/`
    - `./logs/service-b/`
 3. 如果服务器是云主机，还需要在云平台安全组放通 `8081`、`8082`。
-

@@ -4,13 +4,23 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT_DIR"
 
+# Some minimal Linux images do not provide C.UTF-8 locale.
+if [ "${LC_ALL:-}" = "C.UTF-8" ] && ! locale -a 2>/dev/null | grep -qi '^c\.utf-8$'; then
+  unset LC_ALL
+fi
+
 if ! command -v docker >/dev/null 2>&1; then
   echo "ERROR: docker is not installed."
   exit 1
 fi
 
-if ! docker compose version >/dev/null 2>&1; then
-  echo "ERROR: docker compose plugin is not available."
+COMPOSE_CMD=()
+if docker compose version >/dev/null 2>&1; then
+  COMPOSE_CMD=(docker compose)
+elif command -v docker-compose >/dev/null 2>&1; then
+  COMPOSE_CMD=(docker-compose)
+else
+  echo "ERROR: neither 'docker compose' nor 'docker-compose' is available."
   exit 1
 fi
 
@@ -25,13 +35,13 @@ echo "[2/5] Prepare log directories..."
 mkdir -p logs/service-a logs/service-b
 
 echo "[3/5] Build images..."
-docker compose build
+"${COMPOSE_CMD[@]}" build
 
 echo "[4/5] Start containers..."
-docker compose up -d --remove-orphans
+"${COMPOSE_CMD[@]}" up -d --remove-orphans
 
 echo "[5/5] Show running status..."
-docker compose ps
+"${COMPOSE_CMD[@]}" ps
 
 HOST_IP="$(hostname -I 2>/dev/null | awk '{print $1}')"
 if [ -n "${HOST_IP:-}" ]; then

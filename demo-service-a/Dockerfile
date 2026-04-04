@@ -8,10 +8,11 @@ ENV JAVA_HOME=/opt/java/openjdk
 ENV PATH=${JAVA_HOME}/bin:${PATH}
 
 COPY pom.xml .
+COPY demo-service-b/pom.xml demo-service-b/pom.xml
 COPY demo-service-a/pom.xml demo-service-a/pom.xml
 COPY demo-service-a/src demo-service-a/src
 
-RUN java -version && mvn -B -DskipTests -pl demo-service-a -am clean package
+RUN java -version && mvn -B -DskipTests -f demo-service-a/pom.xml clean package
 
 FROM ${JRE_IMAGE}
 

@@ -1,0 +1,4 @@
+name: downgrade-spring-boot-3x
+description: 将Spring Boot从4.0.5降级到3.4.x，修正所有受影响的依赖
+status: proposed
+created: 2026-04-03

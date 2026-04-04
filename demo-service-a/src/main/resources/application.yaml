@@ -1,0 +1,13 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: demo-service-a
+
+service-b:
+  base-url: http://localhost:8082
+
+logging:
+  level:
+    com.glodon.pms.demo: DEBUG

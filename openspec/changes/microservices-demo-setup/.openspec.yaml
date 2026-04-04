@@ -1,0 +1,4 @@
+name: microservices-demo-setup
+description: 微服务演示项目架构改造，创建父子模块结构并集成SkyWalking监控
+status: proposed
+created: 2026-04-03

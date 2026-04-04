@@ -1,0 +1,48 @@
+# =========================
+# Maven / Java build output
+# =========================
+target/
+**/target/
+build/
+out/
+*.class
+
+# =========================
+# Runtime logs
+# =========================
+logs/
+*.log
+
+# =========================
+# IDE / editor
+# =========================
+.idea/
+*.iws
+*.iml
+*.ipr
+.vscode/
+.qoder/
+
+# Eclipse / STS
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings/
+.springBeans
+.sts4-cache
+
+# NetBeans
+nbproject/private/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+# =========================
+# OS / temp files
+# =========================
+.DS_Store
+Thumbs.db
+*.tmp
+*.swp

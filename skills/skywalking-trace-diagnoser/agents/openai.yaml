@@ -1,0 +1,4 @@
+interface:
+  display_name: "SkyWalking Trace Diagnoser"
+  short_description: "Diagnose API failures with SkyWalking traces and logs"
+  default_prompt: "Analyze a failing endpoint via SkyWalking MCP, correlate trace and logs with local code, and return root cause with evidence."

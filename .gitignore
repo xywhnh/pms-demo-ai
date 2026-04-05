@@ -46,3 +46,6 @@ nbdist/
 Thumbs.db
 *.tmp
 *.swp
+
+# Local observability artifacts
+skywalking/agent/

@@ -6,7 +6,7 @@ ROOT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
 cd "$ROOT_DIR"
 
 AGENT_VERSION="${AGENT_VERSION:-9.6.0}"
-AGENT_URL="${AGENT_URL:-https://archive.apache.org/dist/skywalking/java-agent/${AGENT_VERSION}/apache-skywalking-java-agent-${AGENT_VERSION}.tgz}"
+AGENT_URL="${AGENT_URL:-http://infra-jijianjindukeshi.oss-cn-beijing.aliyuncs.com/dev/test/apache-skywalking-java-agent-${AGENT_VERSION}.tgz}"
 
 TARGET_DIR="$ROOT_DIR/skywalking/agent"
 TMP_DIR="$(mktemp -d)"

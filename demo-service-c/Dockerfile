@@ -11,16 +11,16 @@ COPY pom.xml .
 COPY demo-service-a/pom.xml demo-service-a/pom.xml
 COPY demo-service-b/pom.xml demo-service-b/pom.xml
 COPY demo-service-c/pom.xml demo-service-c/pom.xml
-COPY demo-service-a/src demo-service-a/src
+COPY demo-service-c/src demo-service-c/src
 
-RUN java -version && mvn -B -DskipTests -f demo-service-a/pom.xml clean package
+RUN java -version && mvn -B -DskipTests -f demo-service-c/pom.xml clean package
 
 FROM ${JRE_IMAGE}
 
 WORKDIR /app
 RUN mkdir -p /app/logs
 
-COPY --from=builder /workspace/demo-service-a/target/demo-service-a-0.0.1-SNAPSHOT.jar /app/app.jar
+COPY --from=builder /workspace/demo-service-c/target/demo-service-c-0.0.1-SNAPSHOT.jar /app/app.jar
 
-EXPOSE 8081
+EXPOSE 8083
 ENTRYPOINT ["java", "-jar", "/app/app.jar"]

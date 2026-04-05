@@ -18,6 +18,7 @@
 	<modules>
 		<module>demo-service-a</module>
 		<module>demo-service-b</module>
+		<module>demo-service-c</module>
 	</modules>
 
 	<properties>

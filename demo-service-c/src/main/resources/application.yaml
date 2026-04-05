@@ -1,0 +1,10 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: demo-service-c
+
+logging:
+  level:
+    com.glodon.pms.demo: DEBUG

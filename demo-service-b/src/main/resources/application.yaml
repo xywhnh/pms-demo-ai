@@ -5,6 +5,9 @@ spring:
   application:
     name: demo-service-b
 
+service-c:
+  base-url: ${SERVICE_C_BASE_URL:http://localhost:8083}
+
 logging:
   level:
     com.glodon.pms.demo: DEBUG

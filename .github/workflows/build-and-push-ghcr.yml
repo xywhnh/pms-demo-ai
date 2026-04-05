@@ -26,7 +26,7 @@ jobs:
           cache: maven
 
       - name: Build JARs
-        run: mvn -B -DskipTests -pl demo-service-a,demo-service-b -am clean package
+        run: mvn -B -DskipTests -pl demo-service-a,demo-service-b,demo-service-c -am clean package
 
       - name: Set image owner to lowercase
         id: owner
@@ -62,6 +62,16 @@ jobs:
             type=sha,format=short
             type=ref,event=branch
 
+      - name: Docker metadata (service-c)
+        id: meta_c
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/${{ steps.owner.outputs.value }}/${{ github.event.repository.name }}-service-c
+          tags: |
+            type=raw,value=latest,enable={{is_default_branch}}
+            type=sha,format=short
+            type=ref,event=branch
+
       - name: Build and push service-a
         uses: docker/build-push-action@v6
         with:
@@ -85,3 +95,15 @@ jobs:
           sbom: false
           tags: ${{ steps.meta_b.outputs.tags }}
           labels: ${{ steps.meta_b.outputs.labels }}
+
+      - name: Build and push service-c
+        uses: docker/build-push-action@v6
+        with:
+          context: demo-service-c
+          file: demo-service-c/Dockerfile.runtime
+          push: true
+          platforms: linux/amd64
+          provenance: false
+          sbom: false
+          tags: ${{ steps.meta_c.outputs.tags }}
+          labels: ${{ steps.meta_c.outputs.labels }}

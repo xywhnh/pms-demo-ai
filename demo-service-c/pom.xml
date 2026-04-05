@@ -8,21 +8,15 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>demo-service-b</artifactId>
-    <name>demo-service-b</name>
-    <description>Task management service</description>
+    <artifactId>demo-service-c</artifactId>
+    <name>demo-service-c</name>
+    <description>Platform service for user management and notifications</description>
 
     <dependencies>
         <!-- Spring Boot Web -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
-        <!-- OkHttp3 -->
-        <dependency>
-            <groupId>com.squareup.okhttp3</groupId>
-            <artifactId>okhttp</artifactId>
         </dependency>
 
         <!-- Lombok -->

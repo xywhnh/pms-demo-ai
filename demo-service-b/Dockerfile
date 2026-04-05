@@ -10,6 +10,7 @@ ENV PATH=${JAVA_HOME}/bin:${PATH}
 COPY pom.xml .
 COPY demo-service-a/pom.xml demo-service-a/pom.xml
 COPY demo-service-b/pom.xml demo-service-b/pom.xml
+COPY demo-service-c/pom.xml demo-service-c/pom.xml
 COPY demo-service-b/src demo-service-b/src
 
 RUN java -version && mvn -B -DskipTests -f demo-service-b/pom.xml clean package

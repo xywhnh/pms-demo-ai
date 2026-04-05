@@ -6,7 +6,10 @@ spring:
     name: demo-service-a
 
 service-b:
-  base-url: http://localhost:8082
+  base-url: ${SERVICE_B_BASE_URL:http://localhost:8082}
+
+service-c:
+  base-url: ${SERVICE_C_BASE_URL:http://localhost:8083}
 
 logging:
   level:

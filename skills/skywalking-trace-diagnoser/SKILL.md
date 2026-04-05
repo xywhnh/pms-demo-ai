@@ -1,6 +1,6 @@
 ---
 name: skywalking-trace-diagnoser
-description: Analyze API failures by querying SkyWalking traces and logs through MCP, then correlate evidence with local Java code for root-cause diagnosis. Use when users ask why a specific endpoint failed, timed out, degraded, or returned unexpected responses in service-a/service-b scenarios (LOCAL_SUCCESS, LOCAL_ERROR, REMOTE_SUCCESS, REMOTE_TIMEOUT, REMOTE_NPE).
+description: Analyze API failures by querying SkyWalking traces and logs through MCP, then correlate evidence with local Java code for root-cause diagnosis. Use when users ask why a specific endpoint failed, timed out, degraded, or returned unexpected responses in the project management system (service-a/service-b/service-c).
 ---
 
 # SkyWalking Trace Diagnoser
@@ -25,7 +25,7 @@ Output a stable incident report including root cause, impact path, confidence, a
 3. Correlate with code
 - Read [code-map.md](references/code-map.md) to map endpoint and scenario to code paths.
 - Use local code to identify where exception/timeout is generated and where it is transformed.
-- Use [scenario-playbook.md](references/scenario-playbook.md) to match known demo scenarios.
+- Use [scenario-playbook.md](references/scenario-playbook.md) to match known patterns.
 
 4. Produce diagnosis
 - Follow [analysis-template.md](references/analysis-template.md).
@@ -44,6 +44,12 @@ Output a stable incident report including root cause, impact path, confidence, a
   - failing span(operation/service)
   - at least one corroborating log line
   - code file location for fix entry
+- Look for these patterns in span trees:
+  - **N+1 calls**: many sequential Exit spans to the same downstream endpoint
+  - **Silent errors**: child span marked ERROR while parent span shows success
+  - **Cascade timeout**: parallel spans where one slow span causes overall timeout
+  - **Retry storm**: multiple Exit spans to the same endpoint with overlapping times
+  - **Partial failure**: batch operation with mixed success/error child spans
 
 ## References To Load
 

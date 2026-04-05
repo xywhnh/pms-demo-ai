@@ -1,0 +1,28 @@
+version: "3.8"
+
+services:
+  skywalking-oap:
+    container_name: skywalking-oap
+    image: ${SW_OAP_IMAGE:-docker.1ms.run/apache/skywalking-oap-server:10.1.0}
+    restart: unless-stopped
+    environment:
+      SW_STORAGE: ${SW_STORAGE:-h2}
+      JAVA_OPTS: "-Xms256m -Xmx512m -XX:ActiveProcessorCount=2"
+    ports:
+      - "11800:11800"
+      - "12800:12800"
+    security_opt:
+      - seccomp=unconfined
+
+  skywalking-ui:
+    container_name: skywalking-ui
+    image: ${SW_UI_IMAGE:-docker.1ms.run/apache/skywalking-ui:10.1.0}
+    restart: unless-stopped
+    depends_on:
+      - skywalking-oap
+    environment:
+      SW_OAP_ADDRESS: http://skywalking-oap:12800
+    ports:
+      - "18080:8080"
+    security_opt:
+      - seccomp=unconfined

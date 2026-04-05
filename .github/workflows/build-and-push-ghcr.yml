@@ -68,6 +68,9 @@ jobs:
           context: demo-service-a
           file: demo-service-a/Dockerfile.runtime
           push: true
+          platforms: linux/amd64
+          provenance: false
+          sbom: false
           tags: ${{ steps.meta_a.outputs.tags }}
           labels: ${{ steps.meta_a.outputs.labels }}
 
@@ -77,5 +80,8 @@ jobs:
           context: demo-service-b
           file: demo-service-b/Dockerfile.runtime
           push: true
+          platforms: linux/amd64
+          provenance: false
+          sbom: false
           tags: ${{ steps.meta_b.outputs.tags }}
           labels: ${{ steps.meta_b.outputs.labels }}

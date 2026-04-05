@@ -15,4 +15,4 @@ else
 fi
 
 echo "Using compose command: ${COMPOSE_CMD[*]}"
-"${COMPOSE_CMD[@]}" -f docker-compose.ghcr.yml down
+"${COMPOSE_CMD[@]}" down

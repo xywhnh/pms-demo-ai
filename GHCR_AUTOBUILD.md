@@ -11,7 +11,7 @@
 - `.github/workflows/build-and-push-ghcr.yml`
 - `demo-service-a/Dockerfile.runtime`
 - `demo-service-b/Dockerfile.runtime`
-- `docker-compose.ghcr.yml`
+- `docker-compose.yml`（运行编排，直接使用 GHCR 镜像）
 - `scripts/up-ghcr.sh`
 - `scripts/down-ghcr.sh`
 
@@ -50,17 +50,18 @@ docker login ghcr.io -u <github-username>
 bash scripts/up-ghcr.sh
 ```
 
-指定镜像 owner 或 tag：
-
-```bash
-GHCR_OWNER=xywhnh IMAGE_TAG=sha-<short-sha> bash scripts/up-ghcr.sh
-```
-
 停止服务：
 
 ```bash
 bash scripts/down-ghcr.sh
 ```
+
+## Docker 18 兼容性说明
+
+- `docker-compose.yml` 使用 `version: "3.8"` 写法，兼容旧版 `docker-compose`
+- 运行阶段已配置：
+  - `security_opt: seccomp=unconfined`
+- 若你的镜像是公开 package，服务器可直接 `pull`，不需要 PAT 登录
 
 ## 验证接口
 

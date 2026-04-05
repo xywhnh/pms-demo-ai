@@ -1,30 +1,22 @@
+version: "3.8"
+
 services:
   service-b:
     container_name: pms-demo-service-b
-    image: pms-demo-ai/service-b:latest
-    build:
-      context: .
-      dockerfile: demo-service-b/Dockerfile
-      args:
-        MVN_IMAGE: ${MVN_IMAGE:-maven:3.9.9-eclipse-temurin-21}
-        JRE_IMAGE: ${JRE_IMAGE:-eclipse-temurin:21-jre}
+    image: ghcr.io/xywhnh/pms-demo-ai-service-b:latest
     restart: unless-stopped
     ports:
       - "8082:8082"
     volumes:
       - ./logs/service-b:/app/logs
+    security_opt:
+      - seccomp=unconfined
     networks:
       - pms-demo-net
 
   service-a:
     container_name: pms-demo-service-a
-    image: pms-demo-ai/service-a:latest
-    build:
-      context: .
-      dockerfile: demo-service-a/Dockerfile
-      args:
-        MVN_IMAGE: ${MVN_IMAGE:-maven:3.9.9-eclipse-temurin-21}
-        JRE_IMAGE: ${JRE_IMAGE:-eclipse-temurin:21-jre}
+    image: ghcr.io/xywhnh/pms-demo-ai-service-a:latest
     restart: unless-stopped
     depends_on:
       - service-b
@@ -34,6 +26,8 @@ services:
       - "8081:8081"
     volumes:
       - ./logs/service-a:/app/logs
+    security_opt:
+      - seccomp=unconfined
     networks:
       - pms-demo-net
 

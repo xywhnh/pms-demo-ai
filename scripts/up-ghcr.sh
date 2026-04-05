@@ -16,8 +16,8 @@ fi
 
 mkdir -p logs/service-a logs/service-b
 echo "Using compose command: ${COMPOSE_CMD[*]}"
-echo "Using GHCR_OWNER=${GHCR_OWNER:-xywhnh}, IMAGE_TAG=${IMAGE_TAG:-latest}"
+echo "Using images from docker-compose.yml (GHCR latest tags)"
 
-"${COMPOSE_CMD[@]}" -f docker-compose.ghcr.yml pull
-"${COMPOSE_CMD[@]}" -f docker-compose.ghcr.yml up -d
-"${COMPOSE_CMD[@]}" -f docker-compose.ghcr.yml ps
+"${COMPOSE_CMD[@]}" pull
+"${COMPOSE_CMD[@]}" up -d
+"${COMPOSE_CMD[@]}" ps

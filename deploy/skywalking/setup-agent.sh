@@ -5,7 +5,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
 cd "$ROOT_DIR"
 
-AGENT_VERSION="${AGENT_VERSION:-9.4.0}"
+AGENT_VERSION="${AGENT_VERSION:-9.6.0}"
 AGENT_URL="${AGENT_URL:-https://archive.apache.org/dist/skywalking/java-agent/${AGENT_VERSION}/apache-skywalking-java-agent-${AGENT_VERSION}.tgz}"
 
 TARGET_DIR="$ROOT_DIR/skywalking/agent"

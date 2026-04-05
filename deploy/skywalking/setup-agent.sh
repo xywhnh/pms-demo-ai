@@ -7,6 +7,7 @@ cd "$ROOT_DIR"
 
 AGENT_VERSION="${AGENT_VERSION:-9.6.0}"
 AGENT_URL="${AGENT_URL:-http://infra-jijianjindukeshi.oss-cn-beijing.aliyuncs.com/dev/test/apache-skywalking-java-agent-${AGENT_VERSION}.tgz}"
+OPTIONAL_PLUGINS="${OPTIONAL_PLUGINS:-apm-springmvc-annotation-6.x-plugin-${AGENT_VERSION}.jar}"
 
 TARGET_DIR="$ROOT_DIR/skywalking/agent"
 TMP_DIR="$(mktemp -d)"
@@ -41,6 +42,15 @@ AGENT_HOME="$(dirname "$AGENT_JAR")"
 rm -rf "$TARGET_DIR"
 mkdir -p "$TARGET_DIR"
 cp -r "$AGENT_HOME"/. "$TARGET_DIR"/
+
+for plugin in $OPTIONAL_PLUGINS; do
+  if [ -f "$TARGET_DIR/optional-plugins/$plugin" ]; then
+    cp "$TARGET_DIR/optional-plugins/$plugin" "$TARGET_DIR/plugins/"
+    echo "Activated optional plugin: $plugin"
+  else
+    echo "WARN: optional plugin not found: $plugin"
+  fi
+done
 
 test -f "$TARGET_DIR/skywalking-agent.jar"
 echo "SkyWalking agent installed at: $TARGET_DIR"

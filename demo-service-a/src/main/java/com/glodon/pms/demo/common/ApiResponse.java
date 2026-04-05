@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.skywalking.apm.toolkit.trace.TraceContext;
 import org.slf4j.MDC;
 
 /**
@@ -17,6 +18,7 @@ import org.slf4j.MDC;
 @AllArgsConstructor
 public class ApiResponse<T> {
 
+    private static final String SKYWALKING_TRACE_ID_EMPTY = "N/A";
     private static final String TRACE_ID_KEY = "traceId";
 
     /**
@@ -47,7 +49,7 @@ public class ApiResponse<T> {
                 .code(200)
                 .message("success")
                 .data(data)
-                .traceId(MDC.get(TRACE_ID_KEY))
+                .traceId(resolveTraceId())
                 .build();
     }
 
@@ -59,7 +61,7 @@ public class ApiResponse<T> {
                 .code(200)
                 .message(message)
                 .data(data)
-                .traceId(MDC.get(TRACE_ID_KEY))
+                .traceId(resolveTraceId())
                 .build();
     }
 
@@ -71,7 +73,7 @@ public class ApiResponse<T> {
                 .code(code)
                 .message(message)
                 .data(null)
-                .traceId(MDC.get(TRACE_ID_KEY))
+                .traceId(resolveTraceId())
                 .build();
     }
 
@@ -80,5 +82,13 @@ public class ApiResponse<T> {
      */
     public static <T> ApiResponse<T> error(String message) {
         return error(500, message);
+    }
+
+    private static String resolveTraceId() {
+        String skyWalkingTraceId = TraceContext.traceId();
+        if (skyWalkingTraceId == null || skyWalkingTraceId.isEmpty() || SKYWALKING_TRACE_ID_EMPTY.equals(skyWalkingTraceId)) {
+            return MDC.get(TRACE_ID_KEY);
+        }
+        return skyWalkingTraceId;
     }
 }

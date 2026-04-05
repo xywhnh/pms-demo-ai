@@ -1,22 +1,41 @@
 version: "3.8"
 
 services:
+  banyandb:
+    container_name: skywalking-banyandb
+    image: ${SW_BANYANDB_IMAGE:-docker.1ms.run/apache/skywalking-banyandb:0.10.0}
+    command: ["standalone"]
+    restart: unless-stopped
+    expose:
+      - "17912"
+      - "17913"
+    networks:
+      - pms-demo-net
+    security_opt:
+      - seccomp=unconfined
+
   skywalking-oap:
     container_name: skywalking-oap
-    image: ${SW_OAP_IMAGE:-docker.1ms.run/apache/skywalking-oap-server:10.1.0}
+    image: ${SW_OAP_IMAGE:-docker.1ms.run/apache/skywalking-oap-server:10.4.0}
     restart: unless-stopped
+    depends_on:
+      banyandb:
+        condition: service_started
     environment:
-      SW_STORAGE: ${SW_STORAGE:-h2}
+      SW_STORAGE: banyandb
+      SW_STORAGE_BANYANDB_TARGETS: banyandb:17912
       JAVA_OPTS: "-Xms256m -Xmx512m -XX:ActiveProcessorCount=2"
     ports:
       - "11800:11800"
       - "12800:12800"
+    networks:
+      - pms-demo-net
     security_opt:
       - seccomp=unconfined
 
   skywalking-ui:
     container_name: skywalking-ui
-    image: ${SW_UI_IMAGE:-docker.1ms.run/apache/skywalking-ui:10.1.0}
+    image: ${SW_UI_IMAGE:-docker.1ms.run/apache/skywalking-ui:10.4.0}
     restart: unless-stopped
     depends_on:
       - skywalking-oap
@@ -24,5 +43,11 @@ services:
       SW_OAP_ADDRESS: http://skywalking-oap:12800
     ports:
       - "18080:8080"
+    networks:
+      - pms-demo-net
     security_opt:
       - seccomp=unconfined
+
+networks:
+  pms-demo-net:
+    driver: bridge

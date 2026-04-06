@@ -28,6 +28,15 @@ jobs:
       - name: Build JARs
         run: mvn -B -DskipTests -pl demo-service-a,demo-service-b,demo-service-c -am clean package
 
+      - name: Download Arthas package
+        run: |
+          curl -fsSL \
+            http://infra-jijianjindukeshi.oss-cn-beijing.aliyuncs.com/dev/test/arthas-packaging-4.1.8-bin.tar \
+            -o arthas-packaging-4.1.8-bin.tar
+          cp arthas-packaging-4.1.8-bin.tar demo-service-a/arthas-packaging.tar
+          cp arthas-packaging-4.1.8-bin.tar demo-service-b/arthas-packaging.tar
+          cp arthas-packaging-4.1.8-bin.tar demo-service-c/arthas-packaging.tar
+
       - name: Set image owner to lowercase
         id: owner
         run: echo "value=${GITHUB_REPOSITORY_OWNER,,}" >> "$GITHUB_OUTPUT"

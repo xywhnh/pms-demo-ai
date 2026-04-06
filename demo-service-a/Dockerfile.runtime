@@ -1,9 +1,13 @@
-FROM eclipse-temurin:21-jre
+FROM eclipse-temurin:21-jdk
 
 WORKDIR /app
 RUN mkdir -p /app/logs
 
 COPY target/demo-service-a-0.0.1-SNAPSHOT.jar /app/app.jar
+COPY arthas-packaging.tar /opt/arthas/arthas-packaging.tar
+COPY docker-entrypoint.sh /app/docker-entrypoint.sh
+RUN chmod +x /app/docker-entrypoint.sh
 
 EXPOSE 8081
-ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+EXPOSE 3658 8563
+ENTRYPOINT ["sh", "/app/docker-entrypoint.sh"]

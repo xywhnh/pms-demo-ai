@@ -23,10 +23,10 @@ services:
         published: "8083"
         protocol: tcp
       - target: 3658
-        published: "36583"
+        published: "16083"
         protocol: tcp
       - target: 8563
-        published: "85633"
+        published: "18083"
         protocol: tcp
     volumes:
       - ./logs/service-c:/app/logs
@@ -63,10 +63,10 @@ services:
         published: "8082"
         protocol: tcp
       - target: 3658
-        published: "36582"
+        published: "16082"
         protocol: tcp
       - target: 8563
-        published: "85632"
+        published: "18082"
         protocol: tcp
     volumes:
       - ./logs/service-b:/app/logs
@@ -105,10 +105,10 @@ services:
         published: "8081"
         protocol: tcp
       - target: 3658
-        published: "36581"
+        published: "16081"
         protocol: tcp
       - target: 8563
-        published: "85631"
+        published: "18081"
         protocol: tcp
     volumes:
       - ./logs/service-a:/app/logs

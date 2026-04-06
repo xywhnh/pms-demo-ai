@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   service-c:
     container_name: pms-demo-service-c
@@ -15,15 +13,21 @@ services:
       SW_GRPC_LOG_SERVER_HOST: ${SW_GRPC_LOG_SERVER_HOST:-10.0.105.128}
       SW_GRPC_LOG_SERVER_PORT: ${SW_GRPC_LOG_SERVER_PORT:-11800}
       JAVA_TOOL_OPTIONS: -javaagent:/skywalking/agent/skywalking-agent.jar
-      ARTHAS_ENABLED: ${ARTHAS_ENABLED:-true}
-      ARTHAS_START_DELAY_SECONDS: ${ARTHAS_START_DELAY_SECONDS:-8}
-      ARTHAS_TARGET_IP: ${ARTHAS_TARGET_IP:-0.0.0.0}
+      ARTHAS_ENABLED: "${ARTHAS_ENABLED:-true}"
+      ARTHAS_START_DELAY_SECONDS: "${ARTHAS_START_DELAY_SECONDS:-8}"
+      ARTHAS_TARGET_IP: "${ARTHAS_TARGET_IP:-0.0.0.0}"
       ARTHAS_TELNET_PORT: "3658"
       ARTHAS_HTTP_PORT: "8563"
     ports:
-      - "8083:8083"
-      - "36583:3658"
-      - "85633:8563"
+      - target: 8083
+        published: "8083"
+        protocol: tcp
+      - target: 3658
+        published: "36583"
+        protocol: tcp
+      - target: 8563
+        published: "85633"
+        protocol: tcp
     volumes:
       - ./logs/service-c:/app/logs
       - ./skywalking/agent:/skywalking/agent:ro
@@ -49,15 +53,21 @@ services:
       SW_GRPC_LOG_SERVER_HOST: ${SW_GRPC_LOG_SERVER_HOST:-10.0.105.128}
       SW_GRPC_LOG_SERVER_PORT: ${SW_GRPC_LOG_SERVER_PORT:-11800}
       JAVA_TOOL_OPTIONS: -javaagent:/skywalking/agent/skywalking-agent.jar
-      ARTHAS_ENABLED: ${ARTHAS_ENABLED:-true}
-      ARTHAS_START_DELAY_SECONDS: ${ARTHAS_START_DELAY_SECONDS:-8}
-      ARTHAS_TARGET_IP: ${ARTHAS_TARGET_IP:-0.0.0.0}
+      ARTHAS_ENABLED: "${ARTHAS_ENABLED:-true}"
+      ARTHAS_START_DELAY_SECONDS: "${ARTHAS_START_DELAY_SECONDS:-8}"
+      ARTHAS_TARGET_IP: "${ARTHAS_TARGET_IP:-0.0.0.0}"
       ARTHAS_TELNET_PORT: "3658"
       ARTHAS_HTTP_PORT: "8563"
     ports:
-      - "8082:8082"
-      - "36582:3658"
-      - "85632:8563"
+      - target: 8082
+        published: "8082"
+        protocol: tcp
+      - target: 3658
+        published: "36582"
+        protocol: tcp
+      - target: 8563
+        published: "85632"
+        protocol: tcp
     volumes:
       - ./logs/service-b:/app/logs
       - ./skywalking/agent:/skywalking/agent:ro
@@ -85,15 +95,21 @@ services:
       SW_GRPC_LOG_SERVER_HOST: ${SW_GRPC_LOG_SERVER_HOST:-10.0.105.128}
       SW_GRPC_LOG_SERVER_PORT: ${SW_GRPC_LOG_SERVER_PORT:-11800}
       JAVA_TOOL_OPTIONS: -javaagent:/skywalking/agent/skywalking-agent.jar
-      ARTHAS_ENABLED: ${ARTHAS_ENABLED:-true}
-      ARTHAS_START_DELAY_SECONDS: ${ARTHAS_START_DELAY_SECONDS:-8}
-      ARTHAS_TARGET_IP: ${ARTHAS_TARGET_IP:-0.0.0.0}
+      ARTHAS_ENABLED: "${ARTHAS_ENABLED:-true}"
+      ARTHAS_START_DELAY_SECONDS: "${ARTHAS_START_DELAY_SECONDS:-8}"
+      ARTHAS_TARGET_IP: "${ARTHAS_TARGET_IP:-0.0.0.0}"
       ARTHAS_TELNET_PORT: "3658"
       ARTHAS_HTTP_PORT: "8563"
     ports:
-      - "8081:8081"
-      - "36581:3658"
-      - "85631:8563"
+      - target: 8081
+        published: "8081"
+        protocol: tcp
+      - target: 3658
+        published: "36581"
+        protocol: tcp
+      - target: 8563
+        published: "85631"
+        protocol: tcp
     volumes:
       - ./logs/service-a:/app/logs
       - ./skywalking/agent:/skywalking/agent:ro
